@@ -65,6 +65,3 @@ for row in dict:
 	print(surname + "-" + name[0])
 	#Surname.N
 	print(surname + "." + name[0])
-
-
-
