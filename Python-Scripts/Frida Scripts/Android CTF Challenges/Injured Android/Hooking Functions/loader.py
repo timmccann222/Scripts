@@ -3,7 +3,7 @@ import frida
 import time
 
 device = frida.get_usb_device() # get android device
-pid = device.spawn(["com.android.insecurebankv2"]) 
+pid = device.spawn(["b3nac.injuredandroid"]) 
 device.resume(pid)
 time.sleep(1) # Without it Java.perform silently fails
 session = device.attach(pid)
