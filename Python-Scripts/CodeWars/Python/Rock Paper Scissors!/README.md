@@ -9,3 +9,7 @@ Examples(Input1, Input2 --> Output):
 "scissors", "rock" --> "Player 2 won!"
 "paper", "paper" --> "Draw!"
 ```
+
+## Approach
+
+Used multiple if else blocks and returned the relevant reponse based on the provided input.
