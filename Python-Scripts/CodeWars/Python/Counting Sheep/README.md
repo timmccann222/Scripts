@@ -16,3 +16,7 @@ For example,
 The correct answer would be 17.
 
 **Hint**: Don't forget to check for bad values like null/undefined
+
+## Approach
+
+I used the list `count` method, which is more efficient than sum, as well as being more explicit about the intent. The `.count(True)` is a built-in list method that counts how many times **True** appears in the list. Since True is internally represented as 1 in Python (`bool` is a subclass of int), `.count(True)` correctly counts only the True values and ignores False, None, or other values.
