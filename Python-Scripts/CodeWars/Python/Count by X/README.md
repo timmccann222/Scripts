@@ -15,4 +15,10 @@ x = 1, n = 10 --> [1,2,3,4,5,6,7,8,9,10]
 x = 2, n = 5  --> [2,4,6,8,10]
 ```
 
-## Solution
+## Solution 1 - For Loop
+
+Used a for loop and appended to an array.
+
+## Solution 2 - List Comprehension
+
+
