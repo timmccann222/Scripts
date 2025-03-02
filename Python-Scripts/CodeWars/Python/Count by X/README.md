@@ -21,4 +21,4 @@ Used a for loop and appended to an array.
 
 ## Solution 2 - List Comprehension
 
-
+Instead of using a for loop and `.append()`, the list comprehension `[x * y for y in range(1, n + 1)]` does the same thing in a single line. This makes the function cleaner and more Pythonic.
