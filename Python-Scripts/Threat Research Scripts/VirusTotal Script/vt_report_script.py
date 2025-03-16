@@ -46,6 +46,28 @@ def vt_url_report(api_key, url):
         print(f"Error: {response.status_code} - {response.text}")
         return None
 
+# function returns VT report for domain value.
+def vt_domain_report(api_key, domain):
+    url = "https://www.virustotal.com/api/v3/domains/" + domain
+    headers = {"accept": "application/json","x-apikey": api_key}
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        vt_print_report(response.json(), "domain")
+    else:
+        print(f"Error: {response.status_code} - {response.text}")
+        return None
+
+# function returns VT report for IP address value.
+def vt_ip_report(api_key, ip):
+    url = "https://www.virustotal.com/api/v3/ip_addresses/" + ip
+    headers = {"accept": "application/json","x-apikey": api_key}
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        vt_print_report(response.json(), "ip")
+    else:
+        print(f"Error: {response.status_code} - {response.text}")
+        return None
+
 # function formats and displays VT report
 def vt_print_report(response, report_type):
     if 'data' in response:
@@ -88,14 +110,33 @@ def vt_print_report(response, report_type):
             print(f"\033[{BOLD};{BLUE}mFirst Submission Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['first_submission_date']).strftime('%Y-%m-%d %H:%M:%S')}")
             print(f"\033[{BOLD};{BLUE}mLast Submission Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_submission_date']).strftime('%Y-%m-%d %H:%M:%S')}")
             print(f"\033[{BOLD};{BLUE}mLast Modification Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_modification_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+        elif report_type == "domain":
+            print(f"\033[{BOLD};{BLUE}mVT Link:\033[{RESET}m {response['data']['links']['self']}")
+            print(f"\033[{BOLD};{BLUE}mDomain:\033[{RESET}m {response['data']['id']}")
+            print(f"\033[{BOLD};{BLUE}mDomain Reputation:\033[{RESET}m {response['data']['attributes']['reputation']}")
+            print(f"\033[{BOLD};{BLUE}mCreation Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['creation_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mLast Analysis Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_analysis_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mLast Modification Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_modification_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mWHOIS Information:\033[{RESET}m {response['data']['attributes']['whois']}")
+        elif report_type == "ip":
+            print(f"\033[{BOLD};{BLUE}mVT Link:\033[{RESET}m {response['data']['links']['self']}")
+            print(f"\033[{BOLD};{BLUE}mIP Address:\033[{RESET}m {response['data']['id']}")
+            print(f"\033[{BOLD};{BLUE}mNetwork Range:\033[{RESET}m {response['data']['attributes']['network']}")
+            print(f"\033[{BOLD};{BLUE}mCountry Code:\033[{RESET}m {response['data']['attributes']['country']}")
+            print(f"\033[{BOLD};{BLUE}mIP Address Reputation:\033[{RESET}m {response['data']['attributes']['reputation']}")
+            print(f"\033[{BOLD};{BLUE}mLast Analysis Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_analysis_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mLast Modification Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_modification_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mWHOIS Information:\033[{RESET}m {response['data']['attributes']['whois']}")
         else:
             print("\nNo file report data found.")
 
 # function defines arguments that can be passed by a user.
 def parse_args():
-    parser = argparse.ArgumentParser(description="Get file report from VirusTotal using IOC value.")
+    parser = argparse.ArgumentParser(description="Get a file report from VirusTotal using IOC value.")
     parser.add_argument("--hash", type=str, required=False, help="The file hash (MD5, SHA-1, or SHA-256)")
     parser.add_argument("--url", type=str, required=False, help='Provide the URL to scan')
+    parser.add_argument("--domain", type=str, required=False, help='Provide the domain to scan')
+    parser.add_argument("--ip", type=str, required=False, help='Provide the IP address to scan')
     return parser.parse_args()
 
 # defines the main function.
@@ -113,9 +154,14 @@ def main():
         vt_hash_report(vt_api_key, args.hash)
     elif args.url:
         vt_url_report(vt_api_key, args.url)
+    elif args.domain:
+        vt_domain_report(vt_api_key, args.domain)
+    elif args.ip:
+        vt_ip_report(vt_api_key, args.ip)
     else:
-        print("Error: You must provide either a hash or a URL to scan.")
-        args.print_help()
+        print("Error: You must provide either a hash, domain, IP address or a URL to scan.")
+        parser = argparse.ArgumentParser()
+        parser.print_help()
 
 
 if __name__ == "__main__":
