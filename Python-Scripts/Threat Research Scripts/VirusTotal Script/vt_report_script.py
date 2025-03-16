@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+
 import configparser
 import requests
 import json
 import argparse
 from datetime import datetime
+import base64
 
 # function loads configuration file.
 def load_config(file_path='config.ini'):
@@ -26,13 +28,26 @@ def vt_hash_report(api_key, hash):
     headers = {"accept": "application/json","x-apikey": api_key}
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
-        vt_print_report(response.json())
+        vt_print_report(response.json(), "hash")
+    else:
+        print(f"Error: {response.status_code} - {response.text}")
+        return None
+
+# function returns VT report for url value.
+def vt_url_report(api_key, url):
+    # VT requires URL to be base64 encoded before making the API call.
+    encoded_url = base64.urlsafe_b64encode(url.encode()).decode().strip("=")
+    url = "https://www.virustotal.com/api/v3/urls/" + encoded_url
+    headers = {"accept": "application/json","x-apikey": api_key}
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        vt_print_report(response.json(), "url")
     else:
         print(f"Error: {response.status_code} - {response.text}")
         return None
 
 # function formats and displays VT report
-def vt_print_report(response):
+def vt_print_report(response, report_type):
     if 'data' in response:
         print(r"""
      __     ___               _____     _        _   ____                       _
@@ -48,42 +63,60 @@ def vt_print_report(response):
         BLUE = '34'
         RESET = '0'
 
-        # Example of formatting for each print statement
-        print(f"\033[{BOLD};{BLUE}mVT Link:\033[{RESET}m {response['data']['links']['self']}")
-        print(f"\033[{BOLD};{BLUE}mMeaningful File Name:\033[{RESET}m {response['data']['attributes']['meaningful_name']}")
-        print(f"\033[{BOLD};{BLUE}mFile SHA256 Hash:\033[{RESET}m {response['data']['attributes']['sha256']}")
-        print(f"\033[{BOLD};{BLUE}mFile SHA1 Hash:\033[{RESET}m {response['data']['attributes']['sha1']}")
-        print(f"\033[{BOLD};{BLUE}mFile MD5 Hash:\033[{RESET}m {response['data']['attributes']['md5']}")
-        print(f"\033[{BOLD};{BLUE}mFile Reputation Score:\033[{RESET}m {response['data']['attributes']['reputation']}")
-        print(f"\033[{BOLD};{BLUE}mFile Type:\033[{RESET}m {response['data']['type']}")
-        print(f"\033[{BOLD};{BLUE}mFile Type Description:\033[{RESET}m {response['data']['attributes']['type_description']}")
-        print(f"\033[{BOLD};{BLUE}mFile Type Extension:\033[{RESET}m {response['data']['attributes']['type_extension']}")
-        print(f"\033[{BOLD};{BLUE}mCreation Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['creation_date']).strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"\033[{BOLD};{BLUE}mFirst Seen In The Wild:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['first_seen_itw_date']).strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"\033[{BOLD};{BLUE}mLast Modification Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_modification_date']).strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"\033[{BOLD};{BLUE}mFirst Submission Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['first_submission_date']).strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"\033[{BOLD};{BLUE}mLast Submission Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_submission_date']).strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"\033[{BOLD};{BLUE}mSuggested Threat Label:\033[{RESET}m {response['data']['attributes']['popular_threat_classification']['suggested_threat_label']}")
-    else:
-        print("\nNo file report data found.")
+        if report_type == "hash":
+            # Hash Report
+            print(f"\033[{BOLD};{BLUE}mVT Link:\033[{RESET}m {response['data']['links']['self']}")
+            print(f"\033[{BOLD};{BLUE}mMeaningful File Name:\033[{RESET}m {response['data']['attributes']['meaningful_name']}")
+            print(f"\033[{BOLD};{BLUE}mFile SHA256 Hash:\033[{RESET}m {response['data']['attributes']['sha256']}")
+            print(f"\033[{BOLD};{BLUE}mFile SHA1 Hash:\033[{RESET}m {response['data']['attributes']['sha1']}")
+            print(f"\033[{BOLD};{BLUE}mFile MD5 Hash:\033[{RESET}m {response['data']['attributes']['md5']}")
+            print(f"\033[{BOLD};{BLUE}mFile Reputation Score:\033[{RESET}m {response['data']['attributes']['reputation']}")
+            print(f"\033[{BOLD};{BLUE}mFile Type:\033[{RESET}m {response['data']['type']}")
+            print(f"\033[{BOLD};{BLUE}mFile Type Description:\033[{RESET}m {response['data']['attributes']['type_description']}")
+            print(f"\033[{BOLD};{BLUE}mFile Type Extension:\033[{RESET}m {response['data']['attributes']['type_extension']}")
+            print(f"\033[{BOLD};{BLUE}mCreation Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['creation_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mFirst Seen In The Wild:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['first_seen_itw_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mLast Modification Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_modification_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mFirst Submission Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['first_submission_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mLast Submission Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_submission_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mSuggested Threat Label:\033[{RESET}m {response['data']['attributes']['popular_threat_classification']['suggested_threat_label']}")
+        elif report_type == "url":
+            # URL Report
+            print(f"\033[{BOLD};{BLUE}mVT Link:\033[{RESET}m {response['data']['links']['self']}")
+            print(f"\033[{BOLD};{BLUE}mURL:\033[{RESET}m {response['data']['attributes']['url']}")
+            print(f"\033[{BOLD};{BLUE}mURL Reputation:\033[{RESET}m {response['data']['attributes']['reputation']}")
+            print(f"\033[{BOLD};{BLUE}mFirst Submission Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['first_submission_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mLast Submission Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_submission_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\033[{BOLD};{BLUE}mLast Modification Date:\033[{RESET}m {datetime.fromtimestamp(response['data']['attributes']['last_modification_date']).strftime('%Y-%m-%d %H:%M:%S')}")
+        else:
+            print("\nNo file report data found.")
 
 # function defines arguments that can be passed by a user.
 def parse_args():
-    parser = argparse.ArgumentParser(description="Get file report from VirusTotal using a hash value.")
-    parser.add_argument("--hash", type=str, required=True, help="The file hash (MD5, SHA-1, or SHA-256)")
+    parser = argparse.ArgumentParser(description="Get file report from VirusTotal using IOC value.")
+    parser.add_argument("--hash", type=str, required=False, help="The file hash (MD5, SHA-1, or SHA-256)")
+    parser.add_argument("--url", type=str, required=False, help='Provide the URL to scan')
     return parser.parse_args()
 
 # defines the main function.
 def main():
+    # loads configuration file
     config = load_config()
     vt_api_key = get_api_credentials(config)
 
     print(f"VirusTotal API Key: {vt_api_key}")
 
+    # generate report based on IOC provided
     args = parse_args()
-    hash_value = args.hash
 
-    vt_hash_report(vt_api_key, hash_value)
+    if args.hash:
+        vt_hash_report(vt_api_key, args.hash)
+    elif args.url:
+        vt_url_report(vt_api_key, args.url)
+    else:
+        print("Error: You must provide either a hash or a URL to scan.")
+        args.print_help()
+
 
 if __name__ == "__main__":
     main()
