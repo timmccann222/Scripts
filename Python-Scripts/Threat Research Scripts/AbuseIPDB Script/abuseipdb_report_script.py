@@ -10,7 +10,7 @@ def load_config(file_path='config.ini'):
     config = configparser.ConfigParser()
     config.read(file_path)
     return config
-  
+
 # function retrieves API key from configuration file.
 def get_api_credentials(config):
     try:
@@ -24,7 +24,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Get a report from AbuseIPDB based on a provided IP address.")
     parser.add_argument("--ip", type=str, required=False, help="Provide an IP address to AbuseIPDB and return results.")
     parser.add_argument("--ip_list", type=str, required=False, help="Provide a list of IP addresses to AbuseIPDB and return results.")
-    parser.add_argument("--file_type", choices=["csv","json","xlsx"], type=str, required=False, help="Provide ")
+    parser.add_argument("--file_type", choices=["csv","json","xlsx"], type=str, required=False, help="Provide the file format for the list of IP addresses.")
     return parser.parse_args()
 
 # function returns AbuseIPDB report for IP address.
