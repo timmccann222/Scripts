@@ -9,7 +9,7 @@ This is a basic script which can be used to return records from AbuseIPDB for a 
 The script can be used with the following commandline arguments seen below.
 
 ```bash
-usage: AbuseIPDB.py [-h] [--ip IP] [--ip_list IP_LIST] [--file_type {csv,json,xlsx}]
+usage: abuesipdb_report_script.py [-h] [--ip IP] [--ip_list IP_LIST] [--file_type {csv,json,xlsx}]
 
 Get a report from AbuseIPDB based on a provided IP address.
 
