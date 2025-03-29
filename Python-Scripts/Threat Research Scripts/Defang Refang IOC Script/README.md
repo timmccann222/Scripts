@@ -12,7 +12,7 @@ This is a basic script which can be used to refang or defang a specific IOC or a
 The script can be used with the following commandline arguments seen below.
 
 ```bash
-usage: DefangRefangIOC.py [-h] [--operation {defang,refang}] [--ioc IOC] [--ioc_type {ip,domain,url}] [--ioc_list IOC_LIST]
+usage: defangrefang_ioc_script.py [-h] [--operation {defang,refang}] [--ioc IOC] [--ioc_type {ip,domain,url}] [--ioc_list IOC_LIST]
                           [--file_type {csv,json,xlsx}]
 
 Defang/Refang an IOC or a list of IOC's.
