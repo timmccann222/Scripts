@@ -11,6 +11,7 @@
 * [Count by X](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Count%20by%20X) - For Loop & List Comprehensions in Python
 * [Get Planet Name](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Get%20Planet%20Name) - Match Case (i.e. Switch Case)
 * [Boolean Ternary](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Boolean%20Ternary) - Ternary Statement
+* [Reversed Digits](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Reversed%20Digits) - List Comprehensions
 
 ## Python API Fundamentals
 
