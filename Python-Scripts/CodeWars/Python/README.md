@@ -12,6 +12,7 @@
 * [Get Planet Name](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Get%20Planet%20Name) - Match Case (i.e. Switch Case)
 * [Boolean Ternary](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Boolean%20Ternary) - Ternary Statement
 * [Reversed Digits](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Reversed%20Digits) - List Comprehensions
+* [Unfinished Loop](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Unfinished%20Loop) - While Loop
 
 ## Python API Fundamentals
 
