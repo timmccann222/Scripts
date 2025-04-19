@@ -19,3 +19,5 @@ More complex clauses can be constructed by joining numerous **AND** or **OR** lo
 | NOT BETWEEN … AND …    | Number is not within range of two values (inclusive) | col_name NOT BETWEEN 1 AND 10      |
 | IN (…)                 | Number exists in a list                       | col_name IN (2, 4, 6)              |
 | NOT IN (…)             | Number does not exist in a list               | col_name NOT IN (1, 3, 5)          |
+
+# Lesson 2 Exercise
