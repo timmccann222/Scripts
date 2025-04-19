@@ -24,7 +24,7 @@ FROM mytable;
 
 We will be using a database with data about some of Pixar's classic movies for most of our exercises. This first exercise will only involve the **Movies** table.
 
-```
+
 | id  | title               | director         | year | length_minutes |
 |-----|---------------------|------------------|------|----------------|
 | 1   | Toy Story           | John Lasseter    | 1995 | 81             |
@@ -41,7 +41,7 @@ We will be using a database with data about some of Pixar's classic movies for m
 | 12  | Cars 2              | John Lasseter    | 2011 | 120            |
 | 13  | Brave               | Brenda Chapman   | 2012 | 102            |
 | 14  | Monsters University | Dan Scanlon      | 2013 | 110            |
-```
+
 
 1. Find the **title** of each film?
 
