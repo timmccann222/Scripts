@@ -46,25 +46,25 @@ We will be using a database with data about some of Pixar's classic movies for m
 1. Find the **title** of each film?
 
 ```sql
-SELECT Title FROM movies;
+SELECT title FROM movies;
 ```
 
 2. Find the **director** of each film?
 
 ```sql
-SELECT Director FROM movies;
+SELECT director FROM movies;
 ```
 
 3. Find the **title** and **director** of each film?
 
 ```sql
-SELECT Title, Director FROM movies;
+SELECT title, director FROM movies;
 ```
 
 4. Find the **title** and **year** of each film?
 
 ```sql
-SELECT Title, Year FROM movies;
+SELECT title, year FROM movies;
 ```
 
 5. Find **all** the information about each film?
