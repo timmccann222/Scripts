@@ -10,7 +10,15 @@ travelers table schema
 
 * name
 * country
-* 
+
 NOTE: The United States is written as 'USA' in the table.
 
 NOTE: Your solution should use pure SQL. Ruby is used within the test cases just to validate your answer.
+
+## Solution
+
+```sql
+SELECT name, country
+FROM travelers
+WHERE country NOT IN ('Canada', 'Mexico', 'USA');
+```
