@@ -13,6 +13,7 @@
 * [Boolean Ternary](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Boolean%20Ternary) - Ternary Statement
 * [Reversed Digits](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Reversed%20Digits) - List Comprehensions
 * [Unfinished Loop](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Unfinished%20Loop) - While Loop
+* [Credit Card Mask](https://github.com/timmccann222/Scripts/tree/main/Python-Scripts/CodeWars/Python/Credit%20Card%20Mask) - Strings & Slicing Strings in Python
 
 ## Python API Fundamentals
 
