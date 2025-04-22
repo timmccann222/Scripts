@@ -22,6 +22,6 @@ Examples (input --> output):
 
 1. Find the length of the string using the `len()` function. If it is less than or equal to 4, return the string.
 2. If the string length is greater than 4, find the number of **additional** characters in the string, minus the 4 characters at the end, and store the result in a variable titled `string_len`.
-3. Use the `string_len` variable to multiply `#` to generate a hash string based on the number of additional characters. This new value can then be stored in a variable titled `mask_part`
+3. Use the `string_len` variable to multiply `#` to generate a hash string based on the number of additional characters. This new value can then be stored in a variable titled `masked_part`
 4. Use string slicing `[-4:]` to return the last 4 characters of the string and store it in a variable titled `visible_part`.
 5. Combine `masked_part` and `visible_part` values together.
